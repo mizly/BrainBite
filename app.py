@@ -80,7 +80,7 @@ def encode_video(timestamp, video_name='subway.mp4'):
     start_time = random.randint(0, 1800)
     command = (
     f"ffmpeg -ss {start_time} -i gameplay/{video_name} -i data/voice_{timestamp}.mp3 -vf \"subtitles=data/transcription_{timestamp}.srt:force_style='Alignment=10'\" "
-    f"-c:v libx264 -c:a libmp3lame -map 0:v:0 -map 1:a:0 -shortest -y static/output_{timestamp}.mp4"
+    f"-c:v libx264 -c:a libmp3lame -map 0:v:0 -map 1:a:0 -shortest -y static/videos/output_{timestamp}.mp4"
     )
     # Run the command
     try:

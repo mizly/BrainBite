@@ -161,7 +161,7 @@ transcription.json
 transcription.srt
 voice.mp3
 gameplay/*
-static/*
+static/videos/*
 data/*
 
 # PyCharm

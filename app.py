@@ -14,19 +14,21 @@ app = Flask(__name__)
 # Load environment variables from .env file
 load_dotenv()
 
-def run_tts(voice='en_us_001'):
+def run_tts(timestamp, voice='en_us_001'):
     session_id = os.getenv('TIKTOK_SESSION_ID')
     if not session_id:
         raise ValueError("TIKTOK_SESSION_ID environment variable is not set")
     
-    sys.argv = ['main.py', '-v', voice, '-f', 'input.txt', '--session', session_id]
-    main()
+    sys.argv = ['main.py', '-v', voice, '-f', f'data/input_{timestamp}.txt', '--session', session_id]
+    main(timestamp)
+    #rename the output file from voice.mp3 to voice_{timestamp}.mp3
+    os.rename(f"voice.mp3", f"data/voice_{timestamp}.mp3")
 
-def transcription():
+def transcription(timestamp):
     url = "http://localhost:8765/transcriptions?async=false"
     files = {
-        "audio": open("voice.mp3", "rb"),
-        "transcript": open("input.txt", "rb")
+        "audio": open(f"data/voice_{timestamp}.mp3", "rb"),
+        "transcript": open(f"data/input_{timestamp}.txt", "rb")
     }
 
     response = requests.post(url, files=files)
@@ -36,12 +38,12 @@ def transcription():
 
     if response.status_code == 200:
         #save the response to a file
-        with open("transcription.json", "w") as f:
+        with open(f"data/transcription_{timestamp}.json", "w") as f:
             f.write(response.text)
             f.close()
 
-def json_to_srt():
-    json_data = json.load(open("transcription.json"))
+def json_to_srt(timestamp):
+    json_data = json.load(open(f"data/transcription_{timestamp}.json"))
     srt_content = []
     subtitle_index = 1
 
@@ -74,15 +76,15 @@ def json_to_srt():
         subtitle_index += 1
 
     #write the srt content to a file
-    with open("transcription.srt", "w", encoding="utf-8") as f:
+    with open(f"data/transcription_{timestamp}.srt", "w", encoding="utf-8") as f:
         f.write("\n".join(srt_content))
         f.close()
 
-def encode_video(video_name='subway.mp4'):
+def encode_video(timestamp, video_name='subway.mp4'):
     start_time = random.randint(0, 1800)
     command = (
-    f"ffmpeg -ss {start_time} -i gameplay/{video_name} -i voice.mp3 -vf subtitles=transcription.srt "
-    f"-c:v libx264 -c:a libmp3lame -map 0:v:0 -map 1:a:0 -shortest -y static/output.mp4"
+    f"ffmpeg -ss {start_time} -i gameplay/{video_name} -i data/voice_{timestamp}.mp3 -vf subtitles=data/transcription_{timestamp}.srt "
+    f"-c:v libx264 -c:a libmp3lame -map 0:v:0 -map 1:a:0 -shortest -y static/output_{timestamp}.mp4"
 )
     # Run the command
     try:
@@ -109,18 +111,17 @@ def video():
 def generate():
     text_input = request.form['text']
     timestamp = int(time.time())
-    unique_filename = f"{timestamp}"
 
-    with open("input.txt", "w") as f:
+    with open(f"data/input_{timestamp}.txt", "w") as f:
         f.write(text_input)
         f.close()
 
     voice = 'en_us_001'
-    run_tts(voice)
-    transcription()
-    json_to_srt()
-    encode_video()
-    return render_template('video.html')
+    run_tts(timestamp, voice)
+    transcription(timestamp)
+    json_to_srt(timestamp)
+    encode_video(timestamp)
+    return render_template('video.html', timestamp=str(timestamp))
 
 if __name__ == '__main__':
     app.run(debug=True)

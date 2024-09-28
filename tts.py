@@ -54,7 +54,7 @@ def tts(session_id: str, text_speaker: str = "en_us_002", req_text: str = "TikTo
     return output_data
 
 
-def batch_create(filename: str = 'voice.mp3'):
+def batch_create(timestamp, filename: str = 'voice.mp3'):
     out = open(filename, 'wb')
 
     def sorted_alphanumeric(data):
@@ -62,14 +62,14 @@ def batch_create(filename: str = 'voice.mp3'):
         alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
         return sorted(data, key=alphanum_key)
 
-    for item in sorted_alphanumeric(os.listdir('./batch/')):
-        filestuff = open('./batch/' + item, 'rb').read()
+    for item in sorted_alphanumeric(os.listdir(f'./batch_{timestamp}/')):
+        filestuff = open(f'./batch_{timestamp}/' + item, 'rb').read()
         out.write(filestuff)
 
     out.close()
 
 
-def main():
+def main(timestamp):
     parser = argparse.ArgumentParser(description="Simple Python script to interact with the TikTok TTS API")
     parser.add_argument("-v", "--voice", help="the code of the desired voice")
     parser.add_argument("-t", "--text", help="the text to be read")
@@ -113,7 +113,7 @@ def main():
         chunk_size = 200
         textlist = textwrap.wrap(req_text, width=chunk_size, break_long_words=True, break_on_hyphens=False)
 
-        batch_dir = './batch/'
+        batch_dir = f'./batch_{timestamp}/'
 
         if not os.path.exists(batch_dir):
             os.makedirs(batch_dir)
@@ -121,7 +121,7 @@ def main():
         for i, item in enumerate(textlist):
             tts(args.session, text_speaker, item, f'{batch_dir}{i}.mp3', False)
 
-        batch_create(filename)
+        batch_create(timestamp, filename)
 
         for item in os.listdir(batch_dir):
             os.remove(batch_dir + item)

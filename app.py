@@ -6,6 +6,9 @@ import os
 from dotenv import load_dotenv
 import subprocess
 import random
+from flask import Flask, request, render_template, send_file
+
+app = Flask(__name__)
 
 # Load environment variables from .env file
 load_dotenv()
@@ -78,7 +81,7 @@ def encode_video(video_name='subway.mp4'):
     start_time = random.randint(0, 1800)
     command = (
     f"ffmpeg -ss {start_time} -i gameplay/{video_name} -i voice.mp3 -vf subtitles=transcription.srt "
-    f"-c:v libx264 -c:a libmp3lame -map 0:v:0 -map 1:a:0 -shortest -y output.mp4"
+    f"-c:v libx264 -c:a libmp3lame -map 0:v:0 -map 1:a:0 -shortest -y static/output.mp4"
 )
     # Run the command
     try:
@@ -86,7 +89,34 @@ def encode_video(video_name='subway.mp4'):
     except subprocess.CalledProcessError as e:
         print(f"An error occurred: {e}")
 
+'''
 run_tts("en_male_funny")
 transcription()
 json_to_srt()
 encode_video()
+'''
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/video')
+def video():
+    return render_template('video.html')
+
+@app.route('/generate', methods=['POST'])
+def generate():
+    text_input = request.form['text']
+    with open("input.txt", "w") as f:
+        f.write(text_input)
+        f.close()
+
+    voice = 'en_us_001'
+    run_tts(voice)
+    transcription()
+    json_to_srt()
+    encode_video()
+    return render_template('video.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)

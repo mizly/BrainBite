@@ -4,6 +4,8 @@ import json
 from tts import main
 import os
 from dotenv import load_dotenv
+import subprocess
+import random
 
 # Load environment variables from .env file
 load_dotenv()
@@ -34,7 +36,8 @@ def transcription():
             f.write(response.text)
             f.close()
 
-def json_to_srt(json_data):
+def json_to_srt():
+    json_data = json.load(open("transcription.json"))
     srt_content = []
     subtitle_index = 1
 
@@ -64,9 +67,20 @@ def json_to_srt(json_data):
         subtitle_index += 1
 
     #write the srt content to a file
-    with open("output.srt", "w", encoding="utf-8") as f:
+    with open("transcription.srt", "w", encoding="utf-8") as f:
         f.write("\n".join(srt_content))
         f.close()
 
+def encode_video(video_name='subway.mp4'):
+    start_time = random.randint(0, 1800)
+    command = (
+    f"ffmpeg -ss {start_time} -i gameplay/{video_name} -i voice.mp3 -vf subtitles=transcription.srt "
+    f"-c:v libx264 -c:a libmp3lame -map 0:v:0 -map 1:a:0 -shortest -y output.mp4"
+)
+    # Run the command
+    try:
+        subprocess.run(command, shell=True, check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"An error occurred: {e}")
 
-run_tts()
+encode_video()

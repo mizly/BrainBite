@@ -6,6 +6,7 @@ import os
 from dotenv import load_dotenv
 import subprocess
 import random
+import time
 from flask import Flask, request, render_template, send_file
 
 app = Flask(__name__)
@@ -107,6 +108,9 @@ def video():
 @app.route('/generate', methods=['POST'])
 def generate():
     text_input = request.form['text']
+    timestamp = int(time.time())
+    unique_filename = f"{timestamp}"
+
     with open("input.txt", "w") as f:
         f.write(text_input)
         f.close()

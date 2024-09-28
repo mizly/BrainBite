@@ -3,7 +3,6 @@ import sys
 import json
 from tts import main
 import os
-from dotenv import load_dotenv
 import subprocess
 import random
 import time
@@ -11,11 +10,8 @@ from flask import Flask, request, render_template, send_file
 
 app = Flask(__name__)
 
-# Load environment variables from .env file
-load_dotenv()
-
 def run_tts(timestamp, voice='en_us_001'):
-    session_id = os.getenv('TIKTOK_SESSION_ID')
+    session_id = os.environ.get('TIKTOK_SESSION_ID')
     if not session_id:
         raise ValueError("TIKTOK_SESSION_ID environment variable is not set")
     

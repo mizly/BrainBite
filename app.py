@@ -83,9 +83,9 @@ def json_to_srt(timestamp):
 def encode_video(timestamp, video_name='subway.mp4'):
     start_time = random.randint(0, 1800)
     command = (
-    f"ffmpeg -ss {start_time} -i gameplay/{video_name} -i data/voice_{timestamp}.mp3 -vf subtitles=data/transcription_{timestamp}.srt "
+    f"ffmpeg -ss {start_time} -i gameplay/{video_name} -i data/voice_{timestamp}.mp3 -vf \"subtitles=data/transcription_{timestamp}.srt:force_style='Alignment=10'\" "
     f"-c:v libx264 -c:a libmp3lame -map 0:v:0 -map 1:a:0 -shortest -y static/output_{timestamp}.mp4"
-)
+    )
     # Run the command
     try:
         subprocess.run(command, shell=True, check=True)
@@ -103,6 +103,10 @@ encode_video()
 def home():
     return render_template('index.html')
 
+@app.route('/landing')
+def landing():
+    return render_template('landing.html')
+
 @app.route('/video')
 def video():
     return render_template('video.html')
@@ -112,7 +116,7 @@ def generate():
     text_input = request.form['text']
     timestamp = int(time.time())
 
-    with open(f"data/input_{timestamp}.txt", "w") as f:
+    with open(f"data/input_{timestamp}.txt", "w", encoding='utf-8') as f: 
         f.write(text_input)
         f.close()
 

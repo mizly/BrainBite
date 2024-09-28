@@ -8,6 +8,7 @@
   <meta name="author" content="">
     <!-- Bulma Version 1-->
     <link rel="stylesheet" href="https://unpkg.com/bulma@1.0.2/css/bulma.min.css" />  <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="/js/app-page.js"></script>
 </head>
 <body>
@@ -57,10 +58,30 @@
             <h2 class="mb-4 is-size-1 is-size-3-mobile has-text-weight-bold">BrainBite</h2>
             <p class="subtitle has-text-grey mb-5">Introducing a revolutionary new way to learn.</p>
             <div class="buttons is-centered">
-              <a class="mr-3" href="#">
-                <img src="{{ url_for('static', filename='images/app-store.svg') }}" alt=""></a>
-              <a href="#">
-                <img src="{{ url_for('static', filename='images/google-play.svg') }}" alt=""></a>
+
+              <div id="file-upload" class="file has-name is-boxed">
+                <label class="file-label">
+                  <input class="file-input" type="file" name="resume" />
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label"> Choose a file… </span>
+                  </span>
+                  <span class="file-name"> (.pdf, .doc, .docx, .txt) </span>
+                </label>
+              </div>
+
+              <script>
+                const fileInput = document.querySelector("#file-upload input[type=file]");
+                fileInput.onchange = () => {
+                  if (fileInput.files.length > 0) {
+                    const fileName = document.querySelector("#file-upload .file-name");
+                    fileName.textContent = fileInput.files[0].name;
+                  }
+                };
+              </script>
+
             </div>
           </div>
         </div>
@@ -75,8 +96,8 @@
                   <circle cx="24" cy="24" r="23.5" stroke="#00d1b2"></circle>
                 </svg></span>
               <div class="ml-3">
-                <h4 class="is-size-4 has-text-weight-bold mb-2">Lorem ipsum dolor</h4>
-                <p class="subtitle has-text-grey">Pellentesque eu quam vitae mi lacinia consequat quis in metus.</p>
+                <h4 class="is-size-4 has-text-weight-bold mb-2">Engaging Learning Experience</h4>
+                <p class="subtitle has-text-grey">Say goodbye to boring notes! Consume dynamic, short videos that will be sure to grab your attention.</p>
               </div>
             </div>
             <div class="mb-6 is-flex">
@@ -88,8 +109,8 @@
                   <circle cx="24" cy="24" r="23.5" stroke="#00d1b2"></circle>
                 </svg></span>
               <div class="ml-3">
-                <h4 class="is-size-4 has-text-weight-bold mb-2">Lorem ipsum dolor</h4>
-                <p class="subtitle has-text-grey">Pellentesque eu quam vitae mi lacinia consequat quis in metus.</p>
+                <h4 class="is-size-4 has-text-weight-bold mb-2">Time Efficiency</h4>
+                <p class="subtitle has-text-grey">Convert lengthy notes into concise video summaries, saving time while still grasping essential concepts.</p>
               </div>
             </div>
             <div class="mb-6 is-flex">
@@ -101,8 +122,8 @@
                   <circle cx="24" cy="24" r="23.5" stroke="#00d1b2"></circle>
                 </svg></span>
               <div class="ml-3">
-                <h4 class="is-size-4 has-text-weight-bold mb-2">Lorem ipsum dolor</h4>
-                <p class="subtitle has-text-grey">Pellentesque eu quam vitae mi lacinia consequat quis in metus.</p>
+                <h4 class="is-size-4 has-text-weight-bold mb-2">Personalized Content</h4>
+                <p class="subtitle has-text-grey">Tailor the video to your liking, with different story templates and gameplay to choose from.</p>
               </div>
             </div>
           </div>
@@ -119,8 +140,8 @@
                   <circle cx="24" cy="24" r="23.5" stroke="#00d1b2"></circle>
                 </svg></span>
               <div class="ml-3">
-                <h4 class="is-size-4 has-text-weight-bold mb-2">Lorem ipsum dolor</h4>
-                <p class="subtitle has-text-grey">Pellentesque eu quam vitae mi lacinia consequat quis in metus.</p>
+                <h4 class="is-size-4 has-text-weight-bold mb-2">Shareable Knowledge</h4>
+                <p class="subtitle has-text-grey">You can easily share the created videos on social media platforms, promoting collaborative learning with peers.</p>
               </div>
             </div>
             <div class="mb-6 is-flex">
@@ -132,8 +153,8 @@
                   <circle cx="24" cy="24" r="23.5" stroke="#00d1b2"></circle>
                 </svg></span>
               <div class="ml-3">
-                <h4 class="is-size-4 has-text-weight-bold mb-2">Lorem ipsum dolor</h4>
-                <p class="subtitle has-text-grey">Pellentesque eu quam vitae mi lacinia consequat quis in metus.</p>
+                <h4 class="is-size-4 has-text-weight-bold mb-2">Interactive Features</h4>
+                <p class="subtitle has-text-grey">In addition to the videos, quizzes and interactive elements encourage active participation and reinforce learning.</p>
               </div>
             </div>
             <div class="mb-6 is-flex">
@@ -145,8 +166,8 @@
                   <circle cx="24" cy="24" r="23.5" stroke="#00d1b2"></circle>
                 </svg></span>
               <div class="ml-3">
-                <h4 class="is-size-4 has-text-weight-bold mb-2">Lorem ipsum dolor</h4>
-                <p class="subtitle has-text-grey">Pellentesque eu quam vitae mi lacinia consequat quis in metus.</p>
+                <h4 class="is-size-4 has-text-weight-bold mb-2">Accessible Learning</h4>
+                <p class="subtitle has-text-grey">Audio-visual content makes education more accessible to everyone, including those with learning disabilities.</p>
               </div>
             </div>
           </div>

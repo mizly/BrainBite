@@ -154,6 +154,13 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+# files for this specific project
+input.txt
+output.mp4
+transcription.json
+transcription.srt
+voice.mp3
+
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore

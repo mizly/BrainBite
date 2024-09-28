@@ -15,7 +15,7 @@ def run_tts(voice='en_us_001'):
     if not session_id:
         raise ValueError("TIKTOK_SESSION_ID environment variable is not set")
     
-    sys.argv = ['main.py', '-v', voice, '-f', 'input.txt', '--session', 'cd8262ea78f5546c3c4a103dec990db9']
+    sys.argv = ['main.py', '-v', voice, '-f', 'input.txt', '--session', session_id]
     main()
 
 def transcription():
@@ -42,6 +42,9 @@ def json_to_srt():
     subtitle_index = 1
 
     for word_info in json_data['words']:
+        if word_info.get('case') != 'success':
+            continue
+        print("current word info: ", word_info)
         start_time = word_info['start']
         end_time = word_info['end']
         word = word_info['word']
@@ -83,4 +86,7 @@ def encode_video(video_name='subway.mp4'):
     except subprocess.CalledProcessError as e:
         print(f"An error occurred: {e}")
 
+run_tts("en_male_funny")
+transcription()
+json_to_srt()
 encode_video()

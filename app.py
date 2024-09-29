@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('landing.html')
+    return render_template('index.html')
 
 @app.route('/video/<int:timestamp>')
 def video(timestamp):

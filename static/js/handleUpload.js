@@ -19,13 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             else {
                 formData.append('resume', fileInput.files[0]);
-                messageDiv.textContent = 'File submitted successfully!';
+                messageDiv.textContent = 'File submitted successfully! Please wait a moment!';
             }
         } else {
             // If text input has value, create a Blob and append it as a file
             const textBlob = new Blob([textInput.value.trim()], { type: 'text/plain' });
             formData.append('resume', textBlob, 'alternative.txt'); // Append Blob as 'alternative.txt'
-            messageDiv.textContent = 'Text submitted successfully as alternative.txt!';
+            messageDiv.textContent = 'Text submitted successfully! Please wait a moment!';
         }
 
         // Include the selected video style and video source values

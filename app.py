@@ -17,6 +17,8 @@ def video(timestamp):
 @app.route('/generate', methods=['POST'])
 def generate():
     text_input = request.form['text']
+    video_style = request.form['video-style']
+    video_source = request.form['video-source']
     timestamp = int(time.time())
 
     with open(f"data/input_{timestamp}.txt", "w", encoding='utf-8') as f: 
@@ -42,6 +44,10 @@ def allowed_file(filename):
 @app.route('/upload-endpoint', methods=['POST'])
 def upload_file():
     print(request.files)
+    video_style = request.form.get('video-style')
+    video_source = request.form.get('video-source')
+    print(video_style, video_source)
+
     if 'resume' not in request.files:
         return jsonify({'message': 'No file part'}), 400
 
@@ -57,14 +63,11 @@ def upload_file():
         
         # Process the text from the uploaded file
         text = process_text(file_path)
-
-        # Create a data payload for the generate function
-        payload = {'text': text}
         
         generate_url = request.url_root + url_for('generate')
 
         # Send a POST request to the generate function
-        response = requests.post(generate_url, data={'text': text})
+        response = requests.post(generate_url, data={'text': text, 'video-style': video_style, 'video-source': video_source})
         
         # You can handle the response from generate if needed
         if response.status_code == 200:

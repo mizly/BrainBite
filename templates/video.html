@@ -87,43 +87,84 @@
     </body>
     </section>
 
-    <section id="testimonials" class="section has-background-primary">
-      <div class="container">
-        <div class="is-vcentered columns is-multiline">
-          <div class="column is-6 is-5-desktop mb-4">
-            <h2 class="has-text-white mt-2 mb-3 is-size-1 is-size-3-mobile has-text-weight-bold">Changing lives, one video at a time.</h2>
-            <p class="has-text-white">Here's what people have to say about our product.</p>
-          </div>
-          <div class="column is-5 ml-auto">
-              <div class="card has-background-light">
-                <div class="card-content">
-                  <p class="title is-5 has-text-black">
-                    “Blud really made educational brainrot generator before GTA 6 😂”
-                  </p>
-                  <p class="subtitle is-6">George Lau</p>
-                </div>
+    <section id="quiz" class="section has-background-primary">
+        <section class="section">
+            <div class="container">
+                <div id="quiz-container" class="box"></div>
+                <button id="submit" class="button is-primary">Submit</button>
+                <div id="result" class="notification is-info" style="display:none;"></div>
             </div>
-                
-                <div class="card has-background-light">
-                  <div class="card-content">
-                    <p class="title is-5 has-text-black">
-                      “WE MAKING IT OUT OF GRADE 5 WITH THIS ONE 🔥🔥🔥”
-                    </p>
-                    <p class="subtitle is-6">Daniel Lu</p>
-                  </div>
-              </div>
-
-              <div class="card has-background-light">
-                <div class="card-content">
-                  <p class="title is-5 has-text-black">
-                    “I used to be so brainrotted. Now I'm still brainrotted, but at least I'm learning something.”
-                  </p>
-                  <p class="subtitle is-6">Jacob Belovich</p>
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        </section>
+    
+        <script>
+            // Load the quiz JSON
+            fetch("{{ url_for('static', filename='videos/quiz_' + timestamp + '.json') }}")
+                .then(response => response.json())
+                .then(data => {
+                    displayQuiz(data);
+                })
+                .catch(error => console.error('Error loading quiz:', error));
+    
+            function displayQuiz(quizData) {
+                const quizContainer = document.getElementById('quiz-container');
+                quizData.forEach((q, index) => {
+                    const questionDiv = document.createElement('div');
+                    questionDiv.classList.add('block');
+                    
+                    // Extracting question and options from the array
+                    const questionText = q[0];
+                    const options = q.slice(1, 5);
+    
+                    // Question
+                    const questionTitle = document.createElement('h4');
+                    questionTitle.classList.add('title', 'is-4');
+                    questionTitle.textContent = `${index + 1}. ${questionText}`;
+                    questionDiv.appendChild(questionTitle);
+    
+                    // Options
+                    options.forEach((option, optionIndex) => {
+                        const label = document.createElement('label');
+                        label.classList.add('radio');
+                        
+                        const input = document.createElement('input');
+                        input.type = 'radio';
+                        input.name = `question${index}`;
+                        input.value = optionIndex;
+    
+                        label.appendChild(input);
+                        label.appendChild(document.createTextNode(option));
+                        questionDiv.appendChild(label);
+                        questionDiv.appendChild(document.createElement('br'));
+                    });
+    
+                    quizContainer.appendChild(questionDiv);
+                });
+            }
+    
+            document.getElementById('submit').addEventListener('click', () => {
+                fetch("{{ url_for('static', filename='videos/quiz_' + timestamp + '.json') }}")
+                    .then(response => response.json())
+                    .then(data => {
+                        calculateResult(data);
+                    });
+            });
+    
+            function calculateResult(quizData) {
+                let score = 0;
+    
+                quizData.forEach((q, index) => {
+                    const correctIndex = q[5];
+                    const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                    if (selectedOption && parseInt(selectedOption.value) === correctIndex) {
+                        score++;
+                    }
+                });
+    
+                const resultDiv = document.getElementById('result');
+                resultDiv.textContent = `You got ${score} out of ${quizData.length} questions correct.`;
+                resultDiv.style.display = 'block';
+            }
+        </script>
     </section>
     
 

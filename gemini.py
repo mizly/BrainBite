@@ -13,7 +13,7 @@ prompt_schema = "Use this JSON schema:\nResponse = {\"Explanation\":str, \"Quiz\
 
 BRAINROT_DICTIONARY = documentReader.getTextFromTxt("brainrotDictionary.txt")
 def unmodifiedOutput(prompt):
-    strn = model.generate_content("Return the prompt as is, IN PLAIN TEXT WITH NO FORMATTING. Additionally, output a quiz based on the prompt. Do this in a JSON format, where the value for the Quiz key is a 2d array of 5 elements, each representing a question. Each question is an array of size 6, with the 0th element being the question as a string, the next 4 elements are options, and the last element gives the exact index of the correct answer option, including the 0th index. Make sure to give EVERYTHING in plain text. Here is the format:"+prompt_schema+". Put the unmodified explanation in the explanation section of this json ONLY. Here is the prompt:"+prompt)
+    strn = model.generate_content("Return the prompt as is, IN PLAIN TEXT WITH NO FORMATTING. Additionally, output a quiz based on the prompt. Do this in a JSON format, where the value for the Quiz key is a 2d array of 5 elements, each representing a question. Each question is an array of size 6, with the 0th element being the question as a string, the next 4 elements are options, and the last element gives the exact index of the correct answer option as an integer, including the 0th index. Make sure to give EVERYTHING in plain text. Here is the format:"+prompt_schema+". Put the unmodified explanation in the explanation section of this json ONLY. Here is the prompt:"+prompt)
     strn_dict = json.loads(strn.text)
     return strn_dict
 
@@ -43,13 +43,6 @@ def eli5Output(prompt):
     strn = model.generate_content("Explain "+prompt+" to me like I am 5, 100 words long. Include specific details, with no placeholders, like [Insert details here]. Give it to me just as plain text, no string formatting. Additionally, output a quiz based on the prompt, NOT IN ELI5 TERMS. Do this in a JSON format, where the value for the Quiz key is a 2d array of 5 elements, each representing a question. Each question is an array of size 6, with the 0th element being the question as a string, the next 4 elements are options, and the last element gives the exact index of the correct option,including the 0th index. Make sure to give EVERYTHING in plain text. Here is the format:"+prompt_schema+". Put the eli5 explanation in the Explanation section of the json ONLY. Here is the prompt:"+prompt)
     strn_dict = json.loads(strn.text)
     return strn_dict
-
-
-
-output =    unmodifiedOutput("The War of 1812 was fought by the United States and its allies against the United Kingdom and its allies in North America. It began when the United States declared war on Britain on 18 June 1812. Although peace terms were agreed upon in the December 1814 Treaty of Ghent, the war did not officially end until the peace treaty was ratified by the United States Congress on 17 February 1815.")
-
-print(output)
-
 
 
 

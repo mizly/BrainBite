@@ -51,7 +51,9 @@ def generate():
     }
 
     output_function = style_to_function[video_style]
-    text_input = output_function(text_input)
+    output_data = output_function(text_input)
+    text_input = output_data['Explanation']
+    quiz = output_data['Quiz']
 
     with open(f"data/input_{timestamp}.txt", "w", encoding='utf-8') as f: 
         f.write(text_input)
@@ -61,6 +63,7 @@ def generate():
     transcription(timestamp)
     json_to_srt(timestamp)
     encode_video(timestamp,video_name=video_source+'.mp4', max_random=video_source_to_max_random[video_source])
+    write_quiz(timestamp, quiz)
     return str(timestamp)
 
 ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'txt'}

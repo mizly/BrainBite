@@ -83,3 +83,8 @@ def encode_video(timestamp, video_name='subway.mp4', max_random=1800):
         subprocess.run(command, shell=True, check=True)
     except subprocess.CalledProcessError as e:
         print(f"An error occurred: {e}")
+
+def write_quiz(timestamp, quiz):
+    with open(f"static/videos/quiz_{timestamp}.json", "w") as f:
+        json.dump(quiz, f)
+        f.close()

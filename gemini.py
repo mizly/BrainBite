@@ -2,16 +2,15 @@ from google.cloud import aiplatform
 import google.generativeai as genai
 import os
 import numpy as np
-    
+import documentReader
 
 genai.configure(api_key = os.environ["GENAI_KEY"])
 
 
 model = genai.GenerativeModel("gemini-1.5-flash")
-system_instruction = "You are a redditor"
 
 
-
+BRAINROT_DICTIONARY = documentReader.getTextFromTxt("brainrotDictionary.txt")
 def unmodifiedOutput(prompt):
     strn = model.generate_content("Print the contents of "+prompt)
     new_strn = strn.text
@@ -29,7 +28,7 @@ def fortniteOutput(prompt):
 
 
 def brainrotOutput(prompt):
-    strn = model.generate_content("Make an explanation for the following prompt based on brainrot terms, 100 words long. Here are some added examples: livvy dunn and baby gronk mean famous, ohio and beta mean bad, sigma and skibidi mean good. Don't include the descriptors of the brianrot, just the words. Include specific details, with no placeholders, like [Insert details here]. Give it to me just as plain text, no string formatting:"+prompt)
+    strn = model.generate_content("Make an explanation for the following prompt based on and making use of the terms in the following brainrot dictionary, making use of at least 5 words from it, and being 100 words long overall. Prompt:"+prompt+"\n Brainrot Dictionary:"+BRAINROT_DICTIONARY)
     new_strn = strn.text
     return new_strn
     

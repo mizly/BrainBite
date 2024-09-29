@@ -1,6 +1,14 @@
-First, have docker installed. Then run:
-docker run -p 8765:8765 lowerquality/gentle
 
-Then, make sure you have a gameplay folder, with background clips of video to be in the background (default start time is a random time between 0 and 1800 seconds, you can change this if your gameplay isn't long enough)
+## Setup
+First, have docker installed. Run:
+`docker run -p 8765:8765 lowerquality/gentle`
 
-Put your text in input.txt
+Have the necessary videos in `/gameplay`. These are not provided by default.
+
+Finally, run the server with `flask run`.
+
+## Usage
+Upload a .txt, .pdf, .doc/.docx file or enter some text. The resulting video can be shared as a link to your friends or for you to view for later!
+
+## Live demo:
+https://www.fortnite.courses/

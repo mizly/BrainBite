@@ -1,3 +1,4 @@
+import pdfReader
 def process_text(filename):
     # Extract text from the uploaded file
     if filename.endswith('.txt'):
@@ -5,3 +6,6 @@ def process_text(filename):
             text = f.read()
             f.close()
         return text
+    if filename.endswith('.pdf'):
+        return pdfReader.extract_text_from_pdf(filename)
+

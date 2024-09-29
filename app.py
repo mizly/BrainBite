@@ -2,6 +2,7 @@ import time
 from flask import Flask, request, render_template, jsonify, url_for
 from generate_video import *
 from process_text import process_text
+from gemini import *
 
 app = Flask(__name__)
 

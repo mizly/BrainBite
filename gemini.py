@@ -25,7 +25,7 @@ def fortniteOutput(prompt):
 
 
 def brainrotOutput(prompt):
-    strn = model.generate_content("Make an explanation for the following prompt based on and making use of the terms in the following brainrot dictionary, making use of at least 5 words from it, and being 100 words long overall. Prompt:"+prompt+"\n Brainrot Dictionary:"+BRAINROT_DICTIONARY+", Remove any special characters, like *.")
+    strn = model.generate_content("Return in text and punctuation only. Make an explanation for the following prompt based on and making use of the terms in the following brainrot dictionary, making use of at least 5 words from it, and being 100 words long overall. DO NOT HIGHLIGHT THE WORDS THAT YOU USED IN ANYWAY. Prompt:"+prompt+"\n Brainrot Dictionary:"+BRAINROT_DICTIONARY+".")
     new_strn = strn.text
     return new_strn
     

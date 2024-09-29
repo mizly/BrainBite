@@ -18,4 +18,3 @@ def extract_text_from_pdf(pdf_path):
         return text
 
 
-#print(extract_text_from_pdf("STAT2507 ASSIGNMENT 1- Vaibhav Panchanadam.pdf"))

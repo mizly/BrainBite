@@ -9,7 +9,6 @@
     <!-- Bulma Version 1-->
     <link rel="stylesheet" href="https://unpkg.com/bulma@1.0.2/css/bulma.min.css" />  <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <script src="/js/app-page.js"></script>
 </head>
 <body>
   <div>
@@ -57,33 +56,7 @@
           <div class="column is-12 is-6-desktop mx-auto has-text-centered">
             <h2 class="mb-4 is-size-1 is-size-3-mobile has-text-weight-bold">BrainBite</h2>
             <p class="subtitle has-text-grey mb-5">Introducing a revolutionary new way to learn.</p>
-            <div class="buttons is-centered" style="display: flex; flex-direction: column; align-items: center;">
-
-              <div id="file-upload" class="file has-name is-boxed">
-                <label class="file-label">
-                  <input class="file-input" type="file" name="resume" />
-                  <span class="file-cta">
-                    <span class="file-icon">
-                      <i class="fas fa-upload"></i>
-                    </span>
-                    <span class="file-label"> Choose a file… </span>
-                  </span>
-                  <span class="file-name"> (.pdf, .doc, .docx, .txt) </span>
-                </label>
-              </div>
-              
-              <!-- Submit Button -->
-              <button id="submit-btn" class="button is-primary">
-                <span class="file-icon">
-                  <i class="fas fa-check"></i>
-                </span> 
-                <span>Submit</span>
-              </button>
-              <div id="message"></div>
-              
-              <script src="{{ url_for('static', filename='js/handleUpload.js') }}"></script>
-
-            </div>
+            
           </div>
         </div>
         <div class="columns is-multiline">
@@ -176,6 +149,133 @@
       </div>
     </section>
 
+    <section>
+      <div class="buttons is-centered" style="display: flex; flex-direction: column; align-items: center;">
+      <div class = "buttons is-centered">
+      <div class="buttons is-centered" style="display: flex; flex-direction: column; align-items: center;">
+
+        <div id="file-upload" class="file has-name is-boxed">
+          <label class="file-label">
+            <input class="file-input" type="file" name="resume" />
+            <span class="file-cta">
+              <span class="file-icon">
+                <i class="fas fa-upload"></i>
+              </span>
+              <span class="file-label"> Choose a file… </span>
+            </span>
+            <span class="file-name"> (.pdf, .doc, .docx, .txt) </span>
+          </label>
+        </div>
+
+        <!-- Text Box for Alternative Input -->
+        <div class="field">
+          <label class="label" for="text-input">Alternative Input (Enter text):</label>
+          <div class="control">
+              <textarea id="text-input" class="textarea" placeholder="Type your text here..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="buttons is-centered" style="display: flex; flex-direction: column; align-items: flex-start;">
+        <!-- Radio Buttons for Video Style -->
+        <div class="field">
+            <label class="label">Select Video Style:</label>
+            <div class="control">
+                <div class="radio-item">
+                    <label class="radio">
+                        <input type="radio" name="video-style" value="none" checked> None (unmodified)
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="video-style" value="aita"> AITA
+                  </label>
+                </div>
+                <div class="radio-item">
+                    <label class="radio">
+                        <input type="radio" name="video-style" value="nba"> NBA Terms
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="video-style" value="brainrot"> Brainrot Terms
+                  </label>
+                    
+                </div>
+                <div class="radio-item">
+                    <label class="radio">
+                        <input type="radio" name="video-style" value="fortnite"> Fortnite Terms
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="video-style" value="eli5"> ELI5
+                  </label>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Radio Buttons for Background Video Source -->
+        <div class="field">
+            <label class="label">Select Game Play:</label>
+            <div class="control">
+                <div class="radio-item">
+                    <label class="radio">
+                        <input type="radio" name="video-source" value="subway" checked> Subway Surfers
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="video-source" value="minecraft"> Minecraft Parkour
+                  </label>
+                </div>
+                <div class="radio-item">
+                    <label class="radio">
+                        <input type="radio" name="video-source" value="soap"> Soap Cutting
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="video-source" value="cooking"> Cooking
+                  </label>
+                </div>
+                <div class="radio-item">
+                    <label class="radio">
+                        <input type="radio" name="video-source" value="familyguy"> Family Guy
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="video-source" value="breakingbad"> Breaking Bad
+                  </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        /* Aligns the labels uniformly */
+        .buttons .field .radio-item {
+            margin-bottom: 10px; /* Consistent spacing between labels */
+        }
+        .buttons .field {
+            margin-bottom: 20px; /* Spacing between the different radio groups */
+        }
+        .control {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Aligns all radio buttons to the left */
+        }
+        .radio {
+        display: inline-flex;
+        align-items: center;
+        width: 150px; /* Set a fixed width */
+        margin-right: 20px; /* Consistent spacing between each radio button */
+    }
+    </style>
+    
+      </div>
+      
+                <!-- Submit Button -->
+                <button id="submit-btn" class="button is-primary">
+                  <span class="file-icon">
+                    <i class="fas fa-check"></i>
+                  </span> 
+                  <span>Submit</span>
+                </button>
+                <div id="message"></div>     
+      </div>
+      <script src="{{ url_for('static', filename='js/handleUpload.js') }}"></script>
+    </section>
+
     <section class="section has-background-primary">
       <div class="container">
         <div class="is-vcentered columns is-multiline">
@@ -199,6 +299,7 @@
         </div>
       </div>
     </section>
+    
 
     <footer class="section">
       <div class="container">

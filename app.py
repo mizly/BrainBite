@@ -43,6 +43,7 @@ def allowed_file(filename):
 # Route to handle file uploads
 @app.route('/upload-endpoint', methods=['POST'])
 def upload_file():
+    print(request.files)
     if 'resume' not in request.files:
         return jsonify({'message': 'No file part'}), 400
 
@@ -54,7 +55,7 @@ def upload_file():
     if file and allowed_file(file.filename):
         filename = file.filename
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return jsonify({'message': 'File uploaded successfully!', 'filename': filename}), 200
+        return jsonify({'message': 'File uploaded successfully'}), 200
 
     return jsonify({'message': 'File type not allowed'}), 400
 

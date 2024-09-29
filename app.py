@@ -1,5 +1,5 @@
 import time
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 from generate_video import *
 from pypdf import PdfReader
 
@@ -32,6 +32,32 @@ def generate():
     json_to_srt(timestamp)
     encode_video(timestamp)
     return render_template('video.html', timestamp=str(timestamp))
+
+ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'txt'}
+UPLOAD_FOLDER = 'uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Function to check if a file is allowed
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+# Route to handle file uploads
+@app.route('/upload-endpoint', methods=['POST'])
+def upload_file():
+    if 'resume' not in request.files:
+        return jsonify({'message': 'No file part'}), 400
+
+    file = request.files['resume']
+
+    if file.filename == '':
+        return jsonify({'message': 'No selected file'}), 400
+
+    if file and allowed_file(file.filename):
+        filename = file.filename
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return jsonify({'message': 'File uploaded successfully!', 'filename': filename}), 200
+
+    return jsonify({'message': 'File type not allowed'}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)

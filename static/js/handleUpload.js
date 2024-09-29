@@ -46,7 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Check if the upload was successful
             if (response.ok) {
-                const result = await response.json(); // Assuming the server responds with JSON
+                const timestamp = await response.json(); // Assuming your endpoint returns a JSON with the timestamp
+                window.location.href = `/video/${timestamp}`
             } else {
                 throw new Error('File upload failed. Make sure the filetype is either pdf, doc, docx, txt and try again.');
             }

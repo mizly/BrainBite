@@ -1,21 +1,18 @@
 import time
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, url_for
 from generate_video import *
-from pypdf import PdfReader
+from process_text import process_text
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
-
-@app.route('/landing')
-def landing():
     return render_template('landing.html')
 
-@app.route('/video')
-def video():
-    return render_template('video.html')
+@app.route('/video/<int:timestamp>')
+def video(timestamp):
+    print("meow")
+    return render_template('video.html', timestamp=str(timestamp))
 
 @app.route('/generate', methods=['POST'])
 def generate():
@@ -31,7 +28,7 @@ def generate():
     transcription(timestamp)
     json_to_srt(timestamp)
     encode_video(timestamp)
-    return render_template('video.html', timestamp=str(timestamp))
+    return str(timestamp)
 
 ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'txt'}
 UPLOAD_FOLDER = 'uploads'
@@ -55,8 +52,25 @@ def upload_file():
 
     if file and allowed_file(file.filename):
         filename = file.filename
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return jsonify({'message': 'File uploaded successfully'}), 200
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(file_path)
+        
+        # Process the text from the uploaded file
+        text = process_text(file_path)
+
+        # Create a data payload for the generate function
+        payload = {'text': text}
+        
+        generate_url = request.url_root + url_for('generate')
+
+        # Send a POST request to the generate function
+        response = requests.post(generate_url, data={'text': text})
+        
+        # You can handle the response from generate if needed
+        if response.status_code == 200:
+            return str(response.content.decode('utf-8'))
+        else:
+            return jsonify({'message': 'Error in generating response', 'details': response.json()}), 500
 
     return jsonify({'message': 'File type not allowed'}), 400
 

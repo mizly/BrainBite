@@ -57,7 +57,7 @@
           <div class="column is-12 is-6-desktop mx-auto has-text-centered">
             <h2 class="mb-4 is-size-1 is-size-3-mobile has-text-weight-bold">BrainBite</h2>
             <p class="subtitle has-text-grey mb-5">Introducing a revolutionary new way to learn.</p>
-            <div class="buttons is-centered">
+            <div class="buttons is-centered" style="display: flex; flex-direction: column; align-items: center;">
 
               <div id="file-upload" class="file has-name is-boxed">
                 <label class="file-label">
@@ -71,16 +71,17 @@
                   <span class="file-name"> (.pdf, .doc, .docx, .txt) </span>
                 </label>
               </div>
-
-              <script>
-                const fileInput = document.querySelector("#file-upload input[type=file]");
-                fileInput.onchange = () => {
-                  if (fileInput.files.length > 0) {
-                    const fileName = document.querySelector("#file-upload .file-name");
-                    fileName.textContent = fileInput.files[0].name;
-                  }
-                };
-              </script>
+              
+              <!-- Submit Button -->
+              <button id="submit-btn" class="button is-primary">
+                <span class="file-icon">
+                  <i class="fas fa-check"></i>
+                </span> 
+                <span>Submit</span>
+              </button>
+              <div id="message"></div>
+              
+              <script src="{{ url_for('static', filename='js/handleUpload.js') }}"></script>
 
             </div>
           </div>
@@ -128,7 +129,7 @@
             </div>
           </div>
           <div class="column is-4 is-block-desktop is-hidden-touch">
-            <img class="mx-auto mt-0-widescreen is-block image" src="{{ url_for('static', filename='images/phone.png') }}"
+            <img class="mx-auto mt-0-widescreen is-block image" src="{{ url_for('static', filename='images/brainrot.gif') }}"
               alt=""style="width: 230px;"></div>
           <div class="column is-12 is-4-desktop">
             <div class="mb-6 is-flex">

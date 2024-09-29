@@ -1,8 +1,14 @@
 import PyPDF2
 import docx
+import subprocess
 
-def getTextFromPdf(pdf_path):
-    with open(pdf_path, "rb") as file:
+def getTextFromTxt(filename):
+    with open(f'{filename}', 'r', encoding='utf-8') as f:
+            text = f.read()
+            f.close()
+    return text
+def getTextFromPdf(filename):
+    with open(filename, "rb") as file:
         reader = PyPDF2.PdfReader(file)
         full_text = []
 
@@ -25,4 +31,9 @@ def getTextFromDocx(filename):
     for paragraph in doc.paragraphs:
         text+=(paragraph.text + "\n")
     return text
+
+def convert_doc_to_docx(file_path):
+    output_path = file_path.replace('.doc', '.docx')
+    subprocess.run(['unoconv', '-f', 'docx', file_path])
+    return output_path
 

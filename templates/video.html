@@ -69,7 +69,7 @@
             <div class="container">
                 <div class="box">
                         <div class="column is-12 is-6-desktop mx-auto has-text-centered">
-                          <h2 id="about" class="mb-4 is-size-1 is-size-3-mobile has-text-weight-bold">Watch your video!</h2>
+                          <h2 id="about" class="mb-4 is-size-1 is-size-3-mobile has-text-weight-bold">Watch Video</h2>
                           <p class="subtitle has-text-grey mb-5">You can share this link with your friends too!</p>
                         </div>
                     <div class="video-container">
@@ -90,8 +90,17 @@
     <section id="quiz" class="section has-background-primary">
         <section class="section">
             <div class="container">
-                <div id="quiz-container" class="box"></div>
-                <button id="submit" class="button is-primary">Submit</button>
+                <div class="column is-12 is-6-desktop mx-auto has-text-centered">
+                    <h2 id="about" class="mb-4 is-size-1 is-size-3-mobile has-text-weight-bold has-text-black">AP Brainrot Exam</h2>
+                    <p class="subtitle has-text-dark mb-5">Test your skills here!</p>
+                  </div>
+                <div id="quiz-container" class="box has-background-light"></div>
+                <button id="submit" class="button is-light">
+                    <span class="file-icon">
+                      <i class="fas fa-check"></i>
+                    </span> 
+                    <span>Submit</span>
+                  </button>
                 <div id="result" class="notification is-info" style="display:none;"></div>
             </div>
         </section>
@@ -117,7 +126,7 @@
     
                     // Question
                     const questionTitle = document.createElement('h4');
-                    questionTitle.classList.add('title', 'is-4');
+                    questionTitle.classList.add('title', 'is-4', "has-text-dark");
                     questionTitle.textContent = `${index + 1}. ${questionText}`;
                     questionDiv.appendChild(questionTitle);
     
@@ -127,6 +136,7 @@
                         label.classList.add('radio');
                         
                         const input = document.createElement('input');
+                        input.classList.add('mr-2');
                         input.type = 'radio';
                         input.name = `question${index}`;
                         input.value = optionIndex;

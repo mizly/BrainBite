@@ -1,6 +1,7 @@
 import time
 from flask import Flask, request, render_template
 from generate_video import *
+from pypdf import PdfReader
 
 app = Flask(__name__)
 

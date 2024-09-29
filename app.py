@@ -21,6 +21,18 @@ def generate():
     video_source = request.form['video-source']
     timestamp = int(time.time())
 
+    style_to_function = {
+        'nba': nbaOutput,
+        'fortnite': fortniteOutput,
+        'brainrot': brainrotOutput,
+        'aita': redditOutput,
+        'eli5': eli5Output,
+        "none": unmodifiedOutput
+    }
+
+    output_function = style_to_function[video_style]
+    text_input = output_function(text_input)
+
     with open(f"data/input_{timestamp}.txt", "w", encoding='utf-8') as f: 
         f.write(text_input)
         f.close()

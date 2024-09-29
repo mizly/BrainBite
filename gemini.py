@@ -3,18 +3,15 @@ import google.generativeai as genai
 import os
 import numpy as np
 import documentReader
-
-genai.configure(api_key = os.environ["GENAI_KEY"])
-
+gen_ai_key = os.environ.get('GENAI_KEY')
+genai.configure(api_key = gen_ai_key)
 
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 
 BRAINROT_DICTIONARY = documentReader.getTextFromTxt("brainrotDictionary.txt")
 def unmodifiedOutput(prompt):
-    strn = model.generate_content("Print the contents of "+prompt)
-    new_strn = strn.text
-    return new_strn
+    return prompt
 
 def nbaOutput(prompt):
     strn = model.generate_content("Make an explanation for "+prompt+" based on NBA terms, 100 words long. Include specific details, with no placeholders, like [Insert details here]. Give it to me just as plain text, no string formatting.")

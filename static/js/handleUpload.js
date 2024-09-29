@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedStyleValue = selectedStyle ? selectedStyle.value : null;
         const selectedVideo = document.querySelector('input[name="video-source"]:checked');
         const selectedVideoValue = selectedVideo ? selectedVideo.value : null;
+        const selectedNarrator = document.querySelector('input[name="narrator"]:checked');
+        const selectedNarratorValue = selectedNarrator ? selectedNarrator.value : null;
 
         //check that text input isn't empty
         if (textInput.value.trim() === '') {
@@ -35,6 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (selectedVideoValue) {
             formData.append('video-source', selectedVideoValue);
+        }
+
+        if (selectedNarratorValue) {
+            formData.append('narrator', selectedNarratorValue);
         }
 
         try {

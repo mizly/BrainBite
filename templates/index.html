@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  
     <!-- Bulma Version 1-->
     <link rel="stylesheet" href="https://unpkg.com/bulma@1.0.2/css/bulma.min.css" />  <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -152,7 +153,7 @@
       <div class = "buttons is-centered">
       <div class="buttons is-centered" style="display: flex; flex-direction: column; align-items: center;">
 
-        <div id="file-upload" class="file has-name is-boxed">
+        <div id="file-upload" class="file is-large has-name is-boxed">
           <label class="file-label">
             <input class="file-input" type="file" name="resume" />
             <span class="file-cta">
@@ -167,7 +168,7 @@
 
         <!-- Text Box for Alternative Input -->
         <div class="field">
-          <label class="label" for="text-input">Alternative Input (Enter text):</label>
+          <label class="label is-large" for="text-input">Alternative Input (Enter text):</label>
           <div class="control">
               <textarea id="text-input" class="textarea" placeholder="Type your text here..."></textarea>
           </div>
@@ -206,6 +207,7 @@
                 </div>
             </div>
         </div>
+        
     
         <!-- Radio Buttons for Background Video Source -->
         <div class="field">
@@ -237,7 +239,39 @@
                 </div>
             </div>
         </div>
+
+      <!-- Radio Buttons for Narrator -->
+      <div class="field">
+        <label class="label">Select Narrator:</label>
+        <div class="control">
+            <div class="radio-item">
+                <label class="radio">
+                    <input type="radio" name="narrator" value="en_us_001" checked> en_us_001 (default)
+                </label>
+                <label class="radio">
+                  <input type="radio" name="narrator" value="en_male_narration"> en_male_narration
+              </label>
+            </div>
+            <div class="radio-item">
+                <label class="radio">
+                    <input type="radio" name="narrator" value="en_male_funny"> en_male_funny
+                </label>
+                <label class="radio">
+                  <input type="radio" name="narrator" value="es_mx_002"> es_mx_002
+              </label>
+                
+            </div>
+            <div class="radio-item">
+                <label class="radio">
+                    <input type="radio" name="narrator" value="en_us_ghostface"> en_us_ghostface
+                </label>
+                <label class="radio">
+                  <input type="radio" name="narrator" value="fr_001"> fr_001
+              </label>
+            </div>
+        </div>
     </div>
+  </div>
     
     <style>
         /* Aligns the labels uniformly */

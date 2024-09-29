@@ -1,15 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BrainBite</title>
-</head>
+  <title>BrainBite</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+    <!-- Bulma Version 1-->
+    <link rel="stylesheet" href="https://unpkg.com/bulma@1.0.2/css/bulma.min.css" />  <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <body>
-    <h1>BRAINROT SUPREME</h1>
-     <video width="640" height="360" controls>
-        <source src="{{ url_for('static', filename='videos/output_' + timestamp + '.mp4') }}" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+  <div>
+    <div class="columns is-multiline">
+    </div>
+    <nav class="navbar py-4">
+      <div class="container is-fluid">
+        <div class="navbar-brand">
+          <a id="burgerButton" class="navbar-burger" role="button" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+        <div id="navbarMenu" class="navbar-menu">
+          <div class="navbar-start"><a class="navbar-item" href="/">Home</a></div>
+        </div>
+      </div>
+    </nav>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+      const burger = document.getElementById('burgerButton');
+      const menu = document.getElementById('navbarMenu');
+
+      burger.addEventListener('click', () => {
+        // Toggle the "is-active" class on both the burger and the menu
+        burger.classList.toggle('is-active');
+        menu.classList.toggle('is-active');
+
+        // Update the aria-expanded attribute
+        const isExpanded = burger.getAttribute('aria-expanded') === 'true' || false;
+        burger.setAttribute('aria-expanded', !isExpanded);
+      });
+    });
+
+    </script>
+    <section class="section">
+        <style>
+            .video-container {
+                position: relative;
+                padding-bottom: 56.25%; /* 16:9 aspect ratio */
+                height: 0;
+                overflow: hidden;
+                max-width: 100%;
+                background: #000;
+            }
+    
+            .video-container iframe, 
+            .video-container video {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    <body>
+        <section class="section">
+            <div class="container">
+                <div class="box">
+                        <div class="column is-12 is-6-desktop mx-auto has-text-centered">
+                          <h2 id="about" class="mb-4 is-size-1 is-size-3-mobile has-text-weight-bold">Watch your video!</h2>
+                          <p class="subtitle has-text-grey mb-5">You can share this link with your friends too!</p>
+                        </div>
+                    <div class="video-container">
+                        <!-- Replace with your video embed or video tag -->
+                        <iframe 
+                            src="{{ url_for('static', filename='videos/output_' + timestamp + '.mp4') }}" type="video/mp4"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+    </section>
+
+    <section id="testimonials" class="section has-background-primary">
+      <div class="container">
+        <div class="is-vcentered columns is-multiline">
+          <div class="column is-6 is-5-desktop mb-4">
+            <h2 class="has-text-white mt-2 mb-3 is-size-1 is-size-3-mobile has-text-weight-bold">Changing lives, one video at a time.</h2>
+            <p class="has-text-white">Here's what people have to say about our product.</p>
+          </div>
+          <div class="column is-5 ml-auto">
+              <div class="card has-background-light">
+                <div class="card-content">
+                  <p class="title is-5 has-text-black">
+                    “Blud really made educational brainrot generator before GTA 6 😂”
+                  </p>
+                  <p class="subtitle is-6">George Lau</p>
+                </div>
+            </div>
+                
+                <div class="card has-background-light">
+                  <div class="card-content">
+                    <p class="title is-5 has-text-black">
+                      “WE MAKING IT OUT OF GRADE 5 WITH THIS ONE 🔥🔥🔥”
+                    </p>
+                    <p class="subtitle is-6">Daniel Lu</p>
+                  </div>
+              </div>
+
+              <div class="card has-background-light">
+                <div class="card-content">
+                  <p class="title is-5 has-text-black">
+                    “I used to be so brainrotted. Now I'm still brainrotted, but at least I'm learning something.”
+                  </p>
+                  <p class="subtitle is-6">Jacob Belovich</p>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <footer class="section">
+      <div class="container">
+        <div class="pb-5 is-flex is-flex-wrap-wrap is-justify-content-between is-align-items-center">
+        </div>
+      </div>
+      <div class="pt-5" style="border-top: 1px solid #dee2e6;"></div>
+      <div class="container">
+        <div class="is-flex-tablet is-justify-content-between is-align-items-center">
+          <p>Built with ❤️ for Hack The Hill 2024</p>
+          <div class="py-2 is-hidden-tablet"></div>
+          <div class="ml-auto">
+            <a class="mr-4 is-inline-block" href="https://devpost.com/software/brainbite">
+              <img src="{{ url_for('static', filename='images/devpost.svg') }}" alt=""></a>
+            <a class="mr-4 is-inline-block" href="https://github.com/mizly/BrainBite">
+              <img src="{{ url_for('static', filename='images/github.svg') }}" alt=""></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
 </body>
+<style>
+html {
+  scroll-behavior: smooth;
+}
+
+</style>
 </html>

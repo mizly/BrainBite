@@ -25,7 +25,7 @@ def fortniteOutput(prompt):
 
 
 def brainrotOutput(prompt):
-    strn = model.generate_content("Make an explanation for the following prompt based on and making use of the terms in the following brainrot dictionary, making use of at least 5 words from it, and being 100 words long overall. Prompt:"+prompt+"\n Brainrot Dictionary:"+BRAINROT_DICTIONARY)
+    strn = model.generate_content("Make an explanation for the following prompt based on and making use of the terms in the following brainrot dictionary, making use of at least 5 words from it, and being 100 words long overall. Prompt:"+prompt+"\n Brainrot Dictionary:"+BRAINROT_DICTIONARY+", Remove any special characters, like *.")
     new_strn = strn.text
     return new_strn
     
@@ -41,18 +41,7 @@ def eli5Output(prompt):
     return new_strn
 
 
-print(brainrotOutput("One might counter, of course, that a theory based on only a single\
- case is inherently problematic and that, moreover,20 German political\
- development during this period was certainly influenced by a range of\
- factors extending beyond civil society, many of them highly particular.\
- Nevertheless, there are several reasons why an inability of neo\
- Tocquevillean analysis to account for the central features of this case\
- should be significant and troubling. First, scholars have long viewed\
- the Weimar Republic and its collapse as a crucial theoretical testing\
- ground. The disintegration of democracy in interwar Germany is so\
- central to our understanding of comparative politics and so critical for\
- the history of modern Europe that we should at the least be wary of any\
- theory of political development that cannot explain it"))
+
 
 
 

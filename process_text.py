@@ -1,4 +1,4 @@
-import pdfReader
+import documentReader
 def process_text(filename):
     # Extract text from the uploaded file
     if filename.endswith('.txt'):
@@ -7,5 +7,7 @@ def process_text(filename):
             f.close()
         return text
     if filename.endswith('.pdf'):
-        return pdfReader.extract_text_from_pdf(filename)
+        return documentReader.getTextFromPdf(filename)
+    if filename.endswith('.docx'):
+        return documentReader.getTextFromDocx(filename)
 

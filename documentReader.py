@@ -1,6 +1,7 @@
 import PyPDF2
+import docx
 
-def extract_text_from_pdf(pdf_path):
+def getTextFromPdf(pdf_path):
     with open(pdf_path, "rb") as file:
         reader = PyPDF2.PdfReader(file)
         full_text = []
@@ -17,4 +18,11 @@ def extract_text_from_pdf(pdf_path):
 
         return text
 
+
+def getTextFromDocx(filename):
+    doc = docx.Document(filename)
+    text=""
+    for paragraph in doc.paragraphs:
+        text+=(paragraph.text + "\n")
+    return text
 
